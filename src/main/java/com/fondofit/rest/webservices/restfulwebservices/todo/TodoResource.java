@@ -2,6 +2,7 @@ package com.fondofit.rest.webservices.restfulwebservices.todo;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,7 +32,11 @@ public class TodoResource {
 	
 	@GetMapping("/users/{username}/todos/{id}")
 	public Todo getTodo(@PathVariable String username, @PathVariable long id){
-		return todoHardcodedService.findById(id);
+		Optional<Todo> todo = todoHardcodedService.findById(id);
+		if(todo.isPresent()) {
+			return todo.get();
+		}
+		return null;
 	}
 	
 	@PutMapping("/users/{username}/todos/{id}")
@@ -55,11 +60,7 @@ public class TodoResource {
 	@DeleteMapping("/users/{username}/todos/{id}")
 	public ResponseEntity<Void> deleteTodo(@PathVariable String username,
 			@PathVariable long id){
-		Todo todo = todoHardcodedService.deleteById(id);
-		if(todo != null) {
-			return ResponseEntity.noContent().build();
-		}else {
-			return ResponseEntity.notFound().build();
-		}
+		todoHardcodedService.deleteById(id);
+		return ResponseEntity.noContent().build();
 	}
 }

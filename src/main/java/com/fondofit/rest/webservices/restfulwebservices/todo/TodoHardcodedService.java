@@ -1,55 +1,30 @@
 package com.fondofit.rest.webservices.restfulwebservices.todo;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class TodoHardcodedService {
 
-	private static List<Todo> todos = new ArrayList<Todo>();
-	private static int idCounter = 0;
-
-	static {
-		todos.add(new Todo(++idCounter, "fondofit", "Learn to dance", new Date(), false));
-		todos.add(new Todo(++idCounter, "fondofit", "Learn about microservicces 2ss", new Date(), false));
-		todos.add(new Todo(++idCounter, "fondofit", "Learn about Angular", new Date(), false));
-	}
+	@Autowired
+	TodoRepository todoRepository;
 
 	public List<Todo> findAll() {
-		return todos;
+		return todoRepository.findAll();
 	}
 	
-	public Todo deleteById(long id) {
-		Todo todo = findById(id);
-		if(todo == null) {
-			return null;
-		}
-		if(todos.remove(todo)) {
-		return todo;
-		}
-		return null;
+	public void deleteById(long id) {
+		todoRepository.deleteById(id);
 	}
 
-	public Todo findById(long id) {
-		for(Todo todo : todos) {
-			if(todo.getId() == id) {
-				return todo;
-			}
-		}
-		return null;
+	public Optional<Todo> findById(long id) {
+		return todoRepository.findById(id);
 	}
 	
 	public Todo save(Todo todo) {
-		if(todo.getId() == -1 || todo.getId() == 0) {
-			todo.setId(++idCounter);
-			todos.add(todo);
-		}else {
-			deleteById(todo.getId());
-			todos.add(todo);
-		}
-		return todo;
+		return todoRepository.save(todo);
 	}
 }

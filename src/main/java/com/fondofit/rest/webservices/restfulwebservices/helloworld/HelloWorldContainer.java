@@ -17,7 +17,6 @@ public class HelloWorldContainer {
 	@GetMapping("/hello-world-bean")
 	public HelloWorldBean helloWorldBean() {
 //		throw new RuntimeException("Some error has occurred. Contact support at **|**");
-		System.out.println("testing sop");
 		return new HelloWorldBean("Hello World Changes");
 	}
 	

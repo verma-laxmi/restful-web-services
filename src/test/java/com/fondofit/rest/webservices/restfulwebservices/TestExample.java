@@ -13,6 +13,8 @@ public class TestExample {
 	@Test
 	public void testSample() {
 		Todo todo = new Todo(1, "username", "desc", new Date(), false);
+		todo.getId();
+		todo.getDescription();
 		assertEquals("test", "test");
 	}
 }

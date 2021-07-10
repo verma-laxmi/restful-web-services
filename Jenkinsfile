@@ -9,7 +9,7 @@ node{
 	stage('verify on sonar'){
       def sonarHome = tool name: 'sonarqube', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
       withSonarQubeEnv('sonarqube'){
-      	sh "${sonarHome}/bin/soar-scanner \
+      	sh "${sonarHome}/bin/sonar-scanner \
       		-D sonar.projectKey=restful-web-services \
 		-D sonar.login=admin \
 		-D sonar.password=password \

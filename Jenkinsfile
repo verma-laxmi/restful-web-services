@@ -4,6 +4,6 @@ node{
     }
     stage('compile'){
       def mavenHome = tool name: 'Maven3', type: 'maven'
-      sh '${mavenHome}/bin/mvn clean install'
+      sh "${mavenHome}/bin/mvn clean install"
     }
 }
